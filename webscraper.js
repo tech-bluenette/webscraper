@@ -1,5 +1,6 @@
 var cheerio = require('cheerio');
 var path = require("path");
+var fs = require('fs');
 
 var request = require('request');
 request("http://substack.net/images/", function (error, response, body) {
@@ -12,9 +13,13 @@ request("http://substack.net/images/", function (error, response, body) {
     var absolute = ($(this).find('a').attr('href'));
     var fileType = path.extname(absolute);
 
-    console.log(code + url + absolute + fileType);
+    var file = code + url + absolute + fileType;
+
+    fs.appendFile('images.csv', file + "\n", function (err) {
+});
 
     });
+
 
      }
 });
